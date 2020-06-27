@@ -9,7 +9,7 @@ webpack.config.server.js 用于服务端 webpack 构建
 ## 本地调试命令
 - CSR 渲染
 1）`$ npm install` 安装依赖
-2）`$ npm run client` 进行客户端构建打包，并开启 webpack-dev-server
+2）`$ npm run dev` 进行客户端构建打包，并开启 webpack-dev-server
 3）浏览器访问 `https://127.0.0.1:8080`
 
 - SSR 渲染

@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run build && npm run start",
+    "build": "NODE_ENV=development webpack --config webpack.config.js --progress",
+    "start": "webpack-dev-server --config webpack.config.js",
     "commit": "git-cz"
   },
   "repository": {
@@ -37,7 +40,9 @@
     "@babel/preset-react": "^7.10.1",
     "babel-loader": "^8.1.0",
     "commitizen": "^4.1.2",
+    "html-webpack-plugin": "^4.3.0",
     "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }
 }
