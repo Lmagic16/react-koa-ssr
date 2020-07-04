@@ -32,6 +32,7 @@
   "homepage": "https://github.com/Lmagic16/react-koa-ssr#readme",
   "dependencies": {
     "@babel/register": "^7.10.3",
+    "axios": "^0.19.2",
     "koa": "^2.13.0",
     "koa-router": "^9.0.1",
     "koa-static": "^5.0.0",
