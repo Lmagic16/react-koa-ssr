@@ -6,13 +6,18 @@ const Router = require('koa-router');
 const serveStatic = require('koa-static');
 import ReactDOMServer from 'react-dom/server';
 import React from "react";
-import App from './App.jsx';
+import App, { getInitData } from './App.jsx';
 
 async function getServerHtml() {
+  let res = await getInitData();
+  let data = (res && res.data) || [];
+  // 数据注水
+  let initDataHtml = '<script>window.__server_initial_data__ = ' + JSON.stringify(data) + '</script>';
+
   //渲染HTML
-  const appHtml = ReactDOMServer.renderToString(<App />)
+  const appHtml = ReactDOMServer.renderToString(<App data={data}/>);
   const file = fs.readFileSync(process.cwd() +  '/dist/index.html', 'utf8'); //先去读取index.html的内容
-  const serverHtml = file.replace('<div id="server-side-render"></div>', appHtml); //然后将index.html里面的特殊字段用react渲染好的dom字符串替换
+  const serverHtml = file.replace('<div id="server-side-render"></div>', appHtml + initDataHtml); //然后将index.html里面的特殊字段用react渲染好的dom字符串替换
   return serverHtml;
 }
 
@@ -26,7 +31,7 @@ app.use(async (ctx, next) => {
 // 路由规则
 let router = new Router();
 router.get('/', async (ctx) => {
-  console.log("cookie:", ctx.request.header.cookie);
+    console.log('ctx.request.header:', ctx.request.header);
   ctx.body = await getServerHtml();
 });
 
